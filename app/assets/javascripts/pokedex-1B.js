@@ -1,7 +1,8 @@
 Pokedex.RootView.prototype.renderPokemonDetail = function (pokemon) {
+  pokemon.fetch()
+
   this.$pokeDetail.append("<ul class='detail'></ul>")
   var $detail = this.$pokeDetail.find(".detail")
-  console.log(pokemon)
   this.$pokeDetail.append("<li><img src='../" + pokemon.get("image_url") + "'></li>")
   var methods = [
     "id",
@@ -16,7 +17,11 @@ Pokedex.RootView.prototype.renderPokemonDetail = function (pokemon) {
     var attributeString = pokemon.escape(methods[i]);
     $detail.append("<li>" + attributeString + "</li>");
   }
+  this.$pokeDetail.append("<ul class='toys'></ul>")
 
+  var toys = pokemon.toys()
+
+  toys.each(this.addToyToList.bind(this))
 
 };
 
